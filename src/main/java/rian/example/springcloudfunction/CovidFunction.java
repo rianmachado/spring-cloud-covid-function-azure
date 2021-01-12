@@ -30,9 +30,7 @@ public class CovidFunction implements Function<Request, Response> {
 	public Response apply(Request request) {
 		Mono<String> call = webclientService.getCases(request.getName());
 		call.subscribe(value -> {
-			Integer total = mapper.mapperToCountryDetailsList(value).stream()
-					.mapToInt(caseCovid -> caseCovid.getCases()).sum();
-			LOGGER.info("Enviando.... Total: " + total);
+			mapper.mapperToCountryDetailsList(value);
 		});
 		return Response.builder().message("Sucess...").build();
 	}
